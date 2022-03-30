@@ -17,11 +17,31 @@ ip = sys.argv[1]
 cond = threading.Condition()
 notified = [False]
 
+last_palert = 0
+palert = False
+
 def connectionListener(connected, info):
     print(info, '; Connected=%s' % connected)
     with cond:
         notified[0] = True
         cond.notify()
+        pass
+    pass
+
+def onValueSwitch(source, key, value, isNew):
+    global palert
+    if key == 'Mode':
+        if value == 'Shooter':
+            playsound('sons/shooter.mp3')
+        elif value == 'Elevator':
+            playsound('sons/elevator.mp3')
+    elif key == 'AlertPression':
+        if value == True:
+            palert = True
+            playsound('sons/palert.mp3')
+            last_palert = time.time()
+        else:
+            palert = False
 
 NetworkTables.initialize(server=ip)
 
@@ -31,18 +51,21 @@ NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 playsound('sons/jingle.mp3',block=False)
 
 with cond:
-    playsound('sons/attente_conn.mp3')
-    print("Waiting")
+    #playsound('sons/attente_conn.mp3')
+    print("Attente")
     if not notified[0]:
         cond.wait()
 
 print("Connectee")
 playsound('sons/conn.mp3')
 
+sd.addEntryListener(onValueSwitch)
+
 i = 0
 while True:
-    print("robotTime:", sd.getNumber("robotTime", -1))
-
-    sd.putNumber("dsTime", i)
+    if palert and (time.time() - last_palert) >= 1:
+        print('palert')
+        last_palert = time.time()
+        playsound('sons/palert.mp3',block=True)
+        pass
     time.sleep(1)
-    i += 1
