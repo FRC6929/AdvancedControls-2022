@@ -42,6 +42,28 @@ def onValueSwitch(source, key, value, isNew):
             last_palert = time.time()
         else:
             palert = False
+    elif key == 'Bras':
+        if value == 'fixe':
+            playsound('sons/bras_fixe.mp3')
+        elif value == 'mobile':
+            playsound('sons/bras_mobile.mp3')
+    elif key == 'shooter_Set':
+        if value == 'lvl1_av':
+            playsound('sons/lvl1_av.mp3')
+            pass
+        elif value == 'lvl1_arr':
+            playsound('sons/lvl1_arr.mp3')
+            pass
+        elif value == 'lvl2_av':
+            playsound('sons/lvl2_av.mp3')
+            pass
+        elif value == 'lvl2_arr':
+            playsound('sons/lvl2_arr.mp3')
+            pass
+        elif value == 'intake':
+            playsound('sons/intake.mp3')
+            pass
+        
 
 NetworkTables.initialize(server=ip)
 
