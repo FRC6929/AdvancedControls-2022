@@ -33,7 +33,7 @@ def onValueSwitch(source, key, value, isNew):
     if key == 'Mode':
         if value == 'Shooter':
             playsound('sons/shooter.mp3')
-        elif value == 'Elevator':
+        elif value == 'Elevateur':
             playsound('sons/elevator.mp3')
     elif key == 'AlertPression':
         if value == True:
