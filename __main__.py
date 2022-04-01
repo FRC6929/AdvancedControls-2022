@@ -10,12 +10,12 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 if len(sys.argv) != 2:
-    print("Specifie ip")
+    print("Specifie ip et com")
     exit(0)
 
 ip = sys.argv[1]
 
-ser = serial.Serial(sys.argv[2], 9600, 1)
+ser = serial.Serial("COM3", 9600, timeout=0)
 
 cond = threading.Condition()
 notified = [False]
@@ -33,23 +33,18 @@ def connectionListener(connected, info):
 
 def clear_left(x):
     global ser
-    ser.write('A')
-    ser.write('B')
-    ser.write('C')
-    ser.write('D')
-    ser.write('E')
-    ser.write('F')
+    ser.write(b'ABCDEF' + x)
 
 def onValueSwitch(source, key, value, isNew):
     global palert
     if key == 'Mode':
         if value == 'Shooter':
-            ser.write('h')
-            ser.write('I')
+            ser.write(b'h')
+            ser.write(b'I')
             playsound('sons/shooter.mp3')
         elif value == 'Elevateur':
-            ser.write('H')
-            ser.write('i')
+            ser.write(b'H')
+            ser.write(b'i')
             playsound('sons/elevator.mp3')
     elif key == 'AlertPression':
         if value == True:
@@ -58,30 +53,25 @@ def onValueSwitch(source, key, value, isNew):
             last_palert = time.time()
         else:
             palert = False
-    elif key == 'shooter_Set':
+    elif key == 'shooter_set':
         if value == 'lvl1_av':
-            clear_left()
-            ser.write('a')
+            clear_left(b'd')
             playsound('sons/lvl1_av.mp3')
             pass
         elif value == 'lvl1_arr':
-            clear_left()
-            ser.write('b')
+            clear_left(b'a')
             playsound('sons/lvl1_arr.mp3')
             pass
         elif value == 'lvl2_av':
-            clear_left()
-            ser.write('c')
+            clear_left(b'c')
             playsound('sons/lvl2_av.mp3')
             pass
         elif value == 'lvl2_arr':
-            clear_left()
-            ser.write('d')
+            clear_left(b'b')
             playsound('sons/lvl2_arr.mp3')
             pass
         elif value == 'intake':
-            clear_left()
-            ser.write('e')
+            clear_left(b'e')
             playsound('sons/intake.mp3')
             pass
         elif key == 'Bras':
@@ -117,4 +107,5 @@ while True:
         pass
     time.sleep(1)
 
+print('DECONNECTER')
 ser.close()
