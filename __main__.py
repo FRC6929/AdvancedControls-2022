@@ -75,11 +75,13 @@ def onValueSwitch(source, key, value, isNew):
                 clear_left(b'e')
                 playsound('sons/intake.mp3')
                 pass
-            elif key == 'Bras':
-                if value == 'fixe':
-                    playsound('sons/bras_fixe.mp3')
-                elif value == 'mobile':
-                    playsound('sons/bras_mobile.mp3')
+    elif key == 'Bras':
+        if value == 'fixe':
+            clear_left(b­'d')
+            playsound('sons/bras_fixe.mp3')
+        elif value == 'mobile':
+            clear_left(b'e')
+            playsound('sons/bras_mobile.mp3')
 
 NetworkTables.initialize(server=ip)
 
