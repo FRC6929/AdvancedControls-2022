@@ -54,31 +54,32 @@ def onValueSwitch(source, key, value, isNew):
         else:
             palert = False
     elif key == 'shooter_set':
-        if value == 'lvl1_av':
-            clear_left(b'd')
-            playsound('sons/lvl1_av.mp3')
-            pass
-        elif value == 'lvl1_arr':
-            clear_left(b'a')
-            playsound('sons/lvl1_arr.mp3')
-            pass
-        elif value == 'lvl2_av':
-            clear_left(b'c')
-            playsound('sons/lvl2_av.mp3')
-            pass
-        elif value == 'lvl2_arr':
-            clear_left(b'b')
-            playsound('sons/lvl2_arr.mp3')
-            pass
-        elif value == 'intake':
-            clear_left(b'e')
-            playsound('sons/intake.mp3')
-            pass
-        elif key == 'Bras':
-            if value == 'fixe':
-                playsound('sons/bras_fixe.mp3')
-            elif value == 'mobile':
-                playsound('sons/bras_mobile.mp3')
+        if sd.getString("Mode","jsp") == "Shooter":
+            if value == 'lvl1_av':
+                clear_left(b'd')
+                playsound('sons/lvl1_av.mp3')
+                pass
+            elif value == 'lvl1_arr':
+                clear_left(b'a')
+                playsound('sons/lvl1_arr.mp3')
+                pass
+            elif value == 'lvl2_av':
+                clear_left(b'c')
+                playsound('sons/lvl2_av.mp3')
+                pass
+            elif value == 'lvl2_arr':
+                clear_left(b'b')
+                playsound('sons/lvl2_arr.mp3')
+                pass
+            elif value == 'intake':
+                clear_left(b'e')
+                playsound('sons/intake.mp3')
+                pass
+            elif key == 'Bras':
+                if value == 'fixe':
+                    playsound('sons/bras_fixe.mp3')
+                elif value == 'mobile':
+                    playsound('sons/bras_mobile.mp3')
 
 NetworkTables.initialize(server=ip)
 
@@ -103,7 +104,7 @@ while True:
     if palert and (time.time() - last_palert) >= 1:
         print('palert')
         last_palert = time.time()
-        playsound('sons/palert.mp3',block=True)
+        playsound('sons/palert2.mp3',block=True)
         pass
     time.sleep(1)
 
