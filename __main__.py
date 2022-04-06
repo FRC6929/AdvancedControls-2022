@@ -77,7 +77,7 @@ def onValueSwitch(source, key, value, isNew):
                 pass
     elif key == 'Bras':
         if value == 'fixe':
-            clear_left(b­'d')
+            clear_left(b'd')
             playsound('sons/bras_fixe.mp3')
         elif value == 'mobile':
             clear_left(b'e')
